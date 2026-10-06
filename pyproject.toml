@@ -1,0 +1,14 @@
+[project]
+name = "numba-tsp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Addison Hanrattie", email = "40609224+supersimple33@users.noreply.github.com" }
+]
+requires-python = ">=3.15"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
