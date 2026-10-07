@@ -1,4 +1,4 @@
 import numpy as np
 
-type DistMatrix = np.ndarray[tuple[int, int], np.dtype[np.floating]]
-type IntArray = np.ndarray[tuple[int], np.dtype[np.signedinteger]]
+type DistMatrix[n: int] = np.ndarray[tuple[n, n], np.dtype[np.floating]]
+type IntArray[n: int] = np.ndarray[tuple[n], np.dtype[np.signedinteger]]
