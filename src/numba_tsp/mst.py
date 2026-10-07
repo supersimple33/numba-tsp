@@ -4,7 +4,7 @@ from numba import njit
 from .types import DistMatrix, IntArray
 
 
-@njit(fastmath=True)
+@njit(fastmath=True, boundscheck=False, inline="always")
 def prim_mst(dist_matrix: DistMatrix) -> IntArray:
     """
     Compute the Minimum Spanning Tree (MST) of a graph represented by a distance matrix using
@@ -59,7 +59,7 @@ def prim_mst(dist_matrix: DistMatrix) -> IntArray:
     return parent
 
 
-@njit(fastmath=True)
+@njit(fastmath=True, boundscheck=False, inline="always")
 def parent_to_edge_count(parent: IntArray) -> IntArray:
     """
     Given a parent array representing a tree, return an array where each index i contains the number
