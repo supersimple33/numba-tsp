@@ -35,10 +35,19 @@ def prim_mst(dist_matrix: DistMatrix) -> IntArray:
         u_slot = -1
         min_val = np.inf
 
+        # Single combined pass: relax distances AND find next minimum node
         for slot in range(num_unvisited):
-            node = unvisited[slot]
-            if min_dist[node] < min_val:
-                min_val = min_dist[node]
+            v = unvisited[slot]
+            w = dist_matrix[u, v]
+
+            if w < min_dist[v]:
+                min_dist[v] = w
+                parent[v] = u
+
+            # Evaluate candidate minimum immediately after relaxation
+            d = min_dist[v]
+            if d < min_val:
+                min_val = d
                 u_slot = slot
 
         u = unvisited[u_slot]
@@ -46,14 +55,6 @@ def prim_mst(dist_matrix: DistMatrix) -> IntArray:
         # Swap-and-pop removal in O(1)
         num_unvisited -= 1
         unvisited[u_slot] = unvisited[num_unvisited]
-
-        # Relax remaining unvisited nodes
-        for slot in range(num_unvisited):
-            v = unvisited[slot]
-            w = dist_matrix[u, v]
-            if w < min_dist[v]:
-                min_dist[v] = w
-                parent[v] = u
 
     return parent
 
