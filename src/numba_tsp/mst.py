@@ -9,9 +9,9 @@ def prim_mst(dist_matrix: DistMatrix) -> IntArray:
     n = dist_matrix.shape[0]
 
     min_dist = np.full(n, np.inf, dtype=dist_matrix.dtype)
-    parent = np.empty(n, dtype=np.int64)
+    parent = np.empty(n, dtype=np.int32)
 
-    unvisited = np.arange(1, n, dtype=np.int64)
+    unvisited = np.arange(1, n, dtype=np.int32)
     num_unvisited = n - 1
 
     min_dist[0] = 0
