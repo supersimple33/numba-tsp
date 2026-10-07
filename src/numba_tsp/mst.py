@@ -56,3 +56,22 @@ def prim_mst(dist_matrix: DistMatrix) -> IntArray:
                 parent[v] = u
 
     return parent
+
+
+@njit(fastmath=True)
+def parent_to_edge_count(parent: IntArray) -> IntArray:
+    """
+    Given a parent array representing a tree, return an array where each index i contains the number
+    of edges connected to node i. The root node (index 0) will have 0 edges. Assumes that the root
+    node is at index 0 and that the parent array is valid (i.e., it represents a tree).
+    """
+
+    n = parent.shape[0]
+    edge_count = np.ones(n, dtype=parent.dtype)
+    edge_count[0] = 0  # Root node has no parent, so it has no edge
+
+    for v in range(1, n):
+        u = parent[v]
+        edge_count[u] += 1
+
+    return edge_count
