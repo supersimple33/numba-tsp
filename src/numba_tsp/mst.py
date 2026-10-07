@@ -6,6 +6,10 @@ from .types import DistMatrix, IntArray
 
 @njit(fastmath=True)
 def prim_mst(dist_matrix: DistMatrix) -> IntArray:
+    """
+    Compute the Minimum Spanning Tree (MST) of a graph represented by a distance matrix using
+    Prim's algorithm. The graph is assumed to be undirected and connected.
+    """
     n = dist_matrix.shape[0]
 
     min_dist = np.full(n, np.inf, dtype=dist_matrix.dtype)
