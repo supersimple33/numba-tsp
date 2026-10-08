@@ -60,3 +60,30 @@ def eulerian_circuit_from_double_tree(parent_tree: DistMatrix) -> IntArray:
                 pos += 1
 
     return circuit
+
+
+@njit
+def eulerian_shortcutting(eulerian_tour):
+    """
+    Shortcuts an Eulerian tour by removing duplicate node visits,
+    yielding a TSP permutation (Hamiltonian path/cycle).
+
+    Parameters:
+        eulerian_tour (1D np.ndarray): Eulerian circuit array of length 2*N - 1.
+
+    Returns:
+        tour (1D np.ndarray): Permutation array of length N containing unique
+                              vertices in order of first visit.
+    """
+    n = (len(eulerian_tour) + 1) // 2
+    tour = np.empty(n, dtype=eulerian_tour.dtype)
+    visited = np.zeros(n, dtype=np.bool_)
+
+    idx = 0
+    for v in eulerian_tour:
+        if not visited[v]:
+            visited[v] = True
+            tour[idx] = v
+            idx += 1
+
+    return tour
